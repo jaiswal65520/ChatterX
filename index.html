@@ -17,8 +17,19 @@
       display: flex;
       flex-direction: column;
       height: 100vh;
+      overflow: hidden;
     }
-    /* Header */
+    /* Views */
+    .view {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+    }
+    .view.active {
+      display: flex;
+    }
+    /* Home Screen Styles */
     .header {
       background-color: #1f2c34;
       padding: 15px 20px;
@@ -37,7 +48,6 @@
       color: #8696a0;
       font-size: 18px;
     }
-    /* Search Bar */
     .search-container {
       padding: 10px 15px;
       background-color: #121b22;
@@ -52,7 +62,6 @@
       font-size: 14px;
       outline: none;
     }
-    /* Chat List */
     .chat-list {
       flex: 1;
       overflow-y: auto;
@@ -103,7 +112,6 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    /* Bottom Nav */
     .bottom-nav {
       background-color: #1f2c34;
       display: flex;
@@ -121,54 +129,192 @@
       color: #00a884;
       font-weight: bold;
     }
+
+    /* Chat Screen Styles */
+    .chat-header {
+      background-color: #1f2c34;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #222d34;
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      color: #8696a0;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    .chat-header-info .title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #e9edef;
+    }
+    .chat-header-info .status {
+      font-size: 12px;
+      color: #8696a0;
+    }
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #0b141a;
+    }
+    .message {
+      max-width: 75%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .incoming {
+      background-color: #202c33;
+      color: #e9edef;
+      align-self: flex-start;
+      border-top-left-radius: 0;
+    }
+    .outgoing {
+      background-color: #005c4b;
+      color: #e9edef;
+      align-self: flex-end;
+      border-top-right-radius: 0;
+    }
+    .input-area {
+      background-color: #202c33;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-area input {
+      flex: 1;
+      background: #2a3942;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      color: #e9edef;
+      font-size: 14px;
+      outline: none;
+    }
+    .input-area button {
+      background: #00a884;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    <h1>ChatterX</h1>
-    <div class="header-icons">
-      <span>🔍</span>
-      <span>⋮</span>
-    </div>
-  </div>
-
-  <!-- Search Bar -->
-  <div class="search-container">
-    <input type="text" class="search-input" placeholder="Search or start new chat...">
-  </div>
-
-  <!-- Chat List -->
-  <div class="chat-list">
-    <div class="chat-item">
-      <div class="avatar">AI</div>
-      <div class="chat-details">
-        <div class="chat-top">
-          <span class="chat-name">ChatterX Bot</span>
-          <span class="chat-time">17:25</span>
-        </div>
-        <div class="chat-message">Welcome! Phase 2 Home Screen UI active.</div>
+  <!-- Home Screen View -->
+  <div id="homeView" class="view active">
+    <div class="header">
+      <h1>ChatterX</h1>
+      <div class="header-icons">
+        <span>🔍</span>
+        <span>⋮</span>
       </div>
     </div>
-    <div class="chat-item">
-      <div class="avatar" style="background-color: #34b7f1;">JD</div>
-      <div class="chat-details">
-        <div class="chat-top">
-          <span class="chat-name">John Doe</span>
-          <span class="chat-time">16:40</span>
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search or start new chat...">
+    </div>
+    <div class="chat-list">
+      <div class="chat-item" onclick="openChat()">
+        <div class="avatar">AI</div>
+        <div class="chat-details">
+          <div class="chat-top">
+            <span class="chat-name">ChatterX Bot</span>
+            <span class="chat-time">17:25</span>
+          </div>
+          <div class="chat-message">Welcome! Tap here to start chatting.</div>
         </div>
-        <div class="chat-message">Hey, are we still meeting today?</div>
       </div>
+      <div class="chat-item">
+        <div class="avatar" style="background-color: #34b7f1;">JD</div>
+        <div class="chat-details">
+          <div class="chat-top">
+            <span class="chat-name">John Doe</span>
+            <span class="chat-time">16:40</span>
+          </div>
+          <div class="chat-message">Hey, are we still meeting today?</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item active">Chats</div>
+      <div class="nav-item">Status</div>
+      <div class="nav-item">Settings</div>
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <div class="nav-item active">Chats</div>
-    <div class="nav-item">Status</div>
-    <div class="nav-item">Settings</div>
+  <!-- Chat Screen View -->
+  <div id="chatView" class="view">
+    <div class="chat-header">
+      <button class="back-btn" onclick="closeChat()">←</button>
+      <div class="avatar" style="width: 36px; height: 36px; font-size: 14px; margin: 0;">AI</div>
+      <div class="chat-header-info">
+        <div class="title">ChatterX Bot</div>
+        <div class="status">online</div>
+      </div>
+    </div>
+    <div class="chat-box" id="chatBox">
+      <div class="message incoming">Welcome to ChatterX! Tap any chat from home to open.</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Message type karein..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
+
+  <script>
+    function openChat() {
+      document.getElementById('homeView').classList.remove('active');
+      document.getElementById('chatView').classList.add('active');
+    }
+
+    function closeChat() {
+      document.getElementById('chatView').classList.remove('active');
+      document.getElementById('homeView').classList.add('active');
+    }
+
+    function sendMessage() {
+      let input = document.getElementById("userInput");
+      let chatBox = document.getElementById("chatBox");
+
+      if (input.value.trim() !== "") {
+        let msg = document.createElement("div");
+        msg.className = "message outgoing";
+        msg.textContent = input.value;
+        chatBox.appendChild(msg);
+
+        let userText = input.value;
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(() => {
+          let autoReply = document.createElement("div");
+          autoReply.className = "message incoming";
+          autoReply.textContent = "Aapka message mil gaya: " + userText;
+          chatBox.appendChild(autoReply);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
+      }
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+  </script>
 
 </body>
 </html>
