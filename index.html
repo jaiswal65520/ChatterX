@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,8 +28,6 @@
     .view.active {
       display: flex;
     }
-
-    /* Common Header */
     .header {
       background-color: #1f2c34;
       padding: 15px 20px;
@@ -49,8 +46,6 @@
       color: #8696a0;
       font-size: 18px;
     }
-
-    /* Search Bar */
     .search-container {
       padding: 10px 15px;
       background-color: #121b22;
@@ -65,14 +60,10 @@
       font-size: 14px;
       outline: none;
     }
-
-    /* List Content Container */
     .content-list {
       flex: 1;
       overflow-y: auto;
     }
-
-    /* Chat Item */
     .chat-item {
       display: flex;
       align-items: center;
@@ -136,8 +127,6 @@
       min-width: 18px;
       text-align: center;
     }
-
-    /* Bottom Navigation */
     .bottom-nav {
       background-color: #1f2c34;
       display: flex;
@@ -157,8 +146,6 @@
       color: #00a884;
       font-weight: bold;
     }
-
-    /* Chat Screen */
     .chat-header {
       background-color: #1f2c34;
       padding: 10px 15px;
@@ -246,8 +233,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-
-    /* Settings Options */
     .settings-option {
       padding: 16px 20px;
       border-bottom: 1px solid #222d34;
@@ -255,9 +240,6 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-    }
-    .settings-option:active {
-      background-color: #202c33;
     }
     .section-title {
       padding: 15px 20px 8px 20px;
@@ -270,14 +252,11 @@
 </head>
 <body>
 
-  <!-- 1. Chats View Screen -->
+  <!-- 1. Chats View -->
   <div id="chatsView" class="view active">
     <div class="header">
       <h1>ChatterX</h1>
-      <div class="header-icons">
-        <span>🔍</span>
-        <span>⋮</span>
-      </div>
+      <div class="header-icons"><span>🔍</span><span>⋮</span></div>
     </div>
     <div class="search-container">
       <input type="text" class="search-input" placeholder="Search or start new chat...">
@@ -304,14 +283,11 @@
     </div>
   </div>
 
-  <!-- 2. Status View Screen -->
+  <!-- 2. Status View -->
   <div id="statusView" class="view">
     <div class="header">
       <h1>Status</h1>
-      <div class="header-icons">
-        <span>📷</span>
-        <span>⋮</span>
-      </div>
+      <div class="header-icons"><span>📷</span><span>⋮</span></div>
     </div>
     <div class="content-list">
       <div class="chat-item">
@@ -337,43 +313,20 @@
     </div>
   </div>
 
-  <!-- 3. Settings View Screen -->
+  <!-- 3. Settings View -->
   <div id="settingsView" class="view">
-    <div class="header">
-      <h1>Settings</h1>
-    </div>
+    <div class="header"><h1>Settings</h1></div>
     <div class="content-list">
       <div class="chat-item" style="padding: 16px 20px;">
         <div class="avatar" style="width: 56px; height: 56px; font-size: 22px;">CX</div>
         <div class="chat-details">
           <div class="chat-name" style="font-size: 18px;">ChatterX User</div>
-          <div class="chat-message">Building awesome app!</div>
+          <div class="chat-message">Firebase Firestore Enabled</div>
         </div>
       </div>
-      <div class="settings-option">
-        <div>
-          <div style="font-weight: 500;">Account</div>
-          <div style="font-size: 12px; color: #8696a0; margin-top: 2px;">Security notifications, change number</div>
-        </div>
-      </div>
-      <div class="settings-option">
-        <div>
-          <div style="font-weight: 500;">Chats</div>
-          <div style="font-size: 12px; color: #8696a0; margin-top: 2px;">Theme, wallpapers, chat history</div>
-        </div>
-      </div>
-      <div class="settings-option">
-        <div>
-          <div style="font-weight: 500;">Notifications</div>
-          <div style="font-size: 12px; color: #8696a0; margin-top: 2px;">Message, group & call tones</div>
-        </div>
-      </div>
-      <div class="settings-option">
-        <div>
-          <div style="font-weight: 500;">Help</div>
-          <div style="font-size: 12px; color: #8696a0; margin-top: 2px;">Help centre, contact us, privacy policy</div>
-        </div>
-      </div>
+      <div class="settings-option"><div><div style="font-weight: 500;">Account</div><div style="font-size: 12px; color: #8696a0;">Security, change number</div></div></div>
+      <div class="settings-option"><div><div style="font-weight: 500;">Chats</div><div style="font-size: 12px; color: #8696a0;">Theme, chat history storage</div></div></div>
+      <div class="settings-option"><div><div style="font-weight: 500;">Notifications</div><div style="font-size: 12px; color: #8696a0;">Message tones</div></div></div>
     </div>
     <div class="bottom-nav">
       <div class="nav-item" onclick="switchTab('chatsView')">Chats</div>
@@ -382,7 +335,7 @@
     </div>
   </div>
 
-  <!-- 4. Individual Chat Screen -->
+  <!-- 4. Chat Screen -->
   <div id="chatView" class="view">
     <div class="chat-header">
       <button class="back-btn" onclick="closeChat()">←</button>
@@ -393,10 +346,7 @@
       </div>
     </div>
     <div class="chat-box" id="chatBox">
-      <div class="message incoming">
-        <span>Welcome to ChatterX! Timestamps and Status/Settings features are live.</span>
-        <span class="time-stamp">05:48 PM</span>
-      </div>
+      <!-- Messages will load here dynamically from Firebase -->
     </div>
     <div class="input-area">
       <input type="text" id="userInput" placeholder="Message type karein..." onkeypress="handleKeyPress(event)">
@@ -404,21 +354,125 @@
     </div>
   </div>
 
-  <script>
+  <!-- Firebase Script Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // TODO: Apne Firebase project ki details yahan daalein
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     function getCurrentTime() {
       const now = new Date();
       return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
-    function switchTab(viewId) {
+    // Real-time listener to fetch messages from Firestore
+    function listenForMessages() {
+      const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+
+      onSnapshot(q, (snapshot) => {
+        let chatBox = document.getElementById("chatBox");
+        chatBox.innerHTML = "";
+        
+        let lastText = "";
+        let lastTime = "";
+
+        snapshot.forEach((doc) => {
+          let msg = doc.data();
+          let msgDiv = document.createElement("div");
+          
+          // Format time if available, fallback to current time
+          let timeStr = msg.time || getCurrentTime();
+          
+          msgDiv.className = `message ${msg.sender}`;
+          msgDiv.innerHTML = `<span>${msg.text}</span><span class="time-stamp">${timeStr}</span>`;
+          chatBox.appendChild(msgDiv);
+
+          lastText = msg.text;
+          lastTime = timeStr;
+        });
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        if (snapshot.size > 0) {
+          document.getElementById('lastMsgText').textContent = lastText;
+          document.getElementById('lastMsgTime').textContent = lastTime;
+        }
+      });
+    }
+
+    // Send Message to Firebase Firestore
+    window.sendMessage = async function() {
+      let input = document.getElementById("userInput");
+      let text = input.value.trim();
+
+      if (text !== "") {
+        let currentTime = getCurrentTime();
+        input.value = "";
+
+        try {
+          // Save outgoing message
+          await addDoc(collection(db, "messages"), {
+            text: text,
+            sender: "outgoing",
+            time: currentTime,
+            timestamp: serverTimestamp()
+          });
+
+          // Simulate automatic bot reply after 1 second
+          setTimeout(async () => {
+            let replyTime = getCurrentTime();
+            let replyText = "Aapka message mil gaya: " + text;
+            await addDoc(collection(db, "messages"), {
+              text: replyText,
+              sender: "incoming",
+              time: replyTime,
+              timestamp: serverTimestamp()
+            });
+          }, 1000);
+
+        } catch (error) {
+          console.error("Error sending message: ", error);
+        }
+      }
+    };
+
+    window.handleKeyPress = function(event) {
+      if (event.key === "Enter") {
+        window.sendMessage();
+      }
+    };
+
+    window.switchTab = function(viewId) {
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       document.getElementById(viewId).classList.add('active');
     }
 
-    function openChat() {
-      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.getElementById('chatView').classList.add('active');
+    window.openChat = function() {
+      window.switchTab('chatView');
       document.getElementById('unreadBadge').style.display = 'none';
     }
 
-    function closeChat
+    window.closeChat = function() {
+      window.switchTab('chatsView');
+    }
+
+    // Start listening on load
+    window.onload = function() {
+      listenForMessages();
+    }
+  </script>
+</body>
+</html>
