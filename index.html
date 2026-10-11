@@ -262,7 +262,8 @@
       <input type="text" class="search-input" placeholder="Search or start new chat...">
     </div>
     <div class="content-list">
-      <div class="chat-item" onclick="openChat()">
+      <!-- Fixed onclick handler here -->
+      <div class="chat-item" onclick="window.openChat()">
         <div class="avatar">AI</div>
         <div class="chat-details">
           <div class="chat-top">
@@ -277,9 +278,9 @@
       </div>
     </div>
     <div class="bottom-nav">
-      <div class="nav-item active" onclick="switchTab('chatsView')">Chats</div>
-      <div class="nav-item" onclick="switchTab('statusView')">Status</div>
-      <div class="nav-item" onclick="switchTab('settingsView')">Settings</div>
+      <div class="nav-item active" onclick="window.switchTab('chatsView')">Chats</div>
+      <div class="nav-item" onclick="window.switchTab('statusView')">Status</div>
+      <div class="nav-item" onclick="window.switchTab('settingsView')">Settings</div>
     </div>
   </div>
 
@@ -307,9 +308,9 @@
       </div>
     </div>
     <div class="bottom-nav">
-      <div class="nav-item" onclick="switchTab('chatsView')">Chats</div>
-      <div class="nav-item active" onclick="switchTab('statusView')">Status</div>
-      <div class="nav-item" onclick="switchTab('settingsView')">Settings</div>
+      <div class="nav-item" onclick="window.switchTab('chatsView')">Chats</div>
+      <div class="nav-item active" onclick="window.switchTab('statusView')">Status</div>
+      <div class="nav-item" onclick="window.switchTab('settingsView')">Settings</div>
     </div>
   </div>
 
@@ -329,16 +330,16 @@
       <div class="settings-option"><div><div style="font-weight: 500;">Notifications</div><div style="font-size: 12px; color: #8696a0;">Message tones</div></div></div>
     </div>
     <div class="bottom-nav">
-      <div class="nav-item" onclick="switchTab('chatsView')">Chats</div>
-      <div class="nav-item" onclick="switchTab('statusView')">Status</div>
-      <div class="nav-item active" onclick="switchTab('settingsView')">Settings</div>
+      <div class="nav-item" onclick="window.switchTab('chatsView')">Chats</div>
+      <div class="nav-item" onclick="window.switchTab('statusView')">Status</div>
+      <div class="nav-item active" onclick="window.switchTab('settingsView')">Settings</div>
     </div>
   </div>
 
   <!-- 4. Chat Screen -->
   <div id="chatView" class="view">
     <div class="chat-header">
-      <button class="back-btn" onclick="closeChat()">←</button>
+      <button class="back-btn" onclick="window.closeChat()">←</button>
       <div class="avatar" style="width: 36px; height: 36px; font-size: 14px; margin: 0;">AI</div>
       <div class="chat-header-info">
         <div class="title">ChatterX Bot</div>
@@ -349,8 +350,8 @@
       <!-- Messages will load here dynamically from Firebase -->
     </div>
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Message type karein..." onkeypress="handleKeyPress(event)">
-      <button onclick="sendMessage()">Send</button>
+      <input type="text" id="userInput" placeholder="Message type karein..." onkeypress="window.handleKeyPress(event)">
+      <button onclick="window.sendMessage()">Send</button>
     </div>
   </div>
 
@@ -386,14 +387,13 @@
         let chatBox = document.getElementById("chatBox");
         chatBox.innerHTML = "";
         
-        let lastText = "";
-        let lastTime = "";
+        let lastText = "Welcome! Tap here to start chatting.";
+        let lastTime = "Just now";
 
         snapshot.forEach((doc) => {
           let msg = doc.data();
           let msgDiv = document.createElement("div");
           
-          // Format time if available, fallback to current time
           let timeStr = msg.time || getCurrentTime();
           
           msgDiv.className = `message ${msg.sender}`;
@@ -406,10 +406,12 @@
 
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        if (snapshot.size > 0) {
+        if (!snapshot.empty) {
           document.getElementById('lastMsgText').textContent = lastText;
           document.getElementById('lastMsgTime').textContent = lastTime;
         }
+      }, (error) => {
+        console.error("Error listening to messages (Check Firebase Config):", error);
       });
     }
 
@@ -462,7 +464,8 @@
 
     window.openChat = function() {
       window.switchTab('chatView');
-      document.getElementById('unreadBadge').style.display = 'none';
+      let badge = document.getElementById('unreadBadge');
+      if(badge) badge.style.display = 'none';
     }
 
     window.closeChat = function() {
